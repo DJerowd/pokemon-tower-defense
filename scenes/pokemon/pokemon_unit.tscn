@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://h8nrmm64tgqp"]
+
+[ext_resource type="Texture2D" uid="uid://bdu3fwwf4kxe8" path="res://assets/pokemon/Pokemon Overworld Sprites.png" id="1_7n7nc"]
+[ext_resource type="Script" uid="uid://cjikqwx50la7e" path="res://scripts/pokemon/pokemon_unit.gd" id="1_v3ygw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3ygw"]
+atlas = ExtResource("1_7n7nc")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0c07g"]
+atlas = ExtResource("1_7n7nc")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xlwwq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3ygw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0c07g")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="PokemonUnit" type="Node3D" unique_id=2122445873]
+script = ExtResource("1_v3ygw")
+
+[node name="SpritePivot" type="Node3D" parent="." unique_id=1669057525]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SpritePivot" unique_id=1883730840]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
+billboard = 1
+sprite_frames = SubResource("SpriteFrames_xlwwq")
+animation = &"idle"
+frame = 1
+frame_progress = 0.34933588

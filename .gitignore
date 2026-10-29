@@ -1,3 +1,25 @@
 # Godot 4+ specific ignores
-.godot/
 /android/
+
+# Cache gerado pelo Godot
+.godot/
+
+# Arquivos e pastas de exportação gerados
+build/
+builds/
+
+# Logs
+*.log
+
+# Configurações locais de editores
+.vscode/
+.idea/
+
+# Arquivos temporários do sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos de exportação que podem conter credenciais
+# Confira se este arquivo é necessário para sua versão do Godot
+export_credentials.cfg

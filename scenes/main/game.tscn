@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://bth0pr17jmgat"]
+
+[ext_resource type="PackedScene" uid="uid://h8nrmm64tgqp" path="res://scenes/pokemon/pokemon_unit.tscn" id="1_e64el"]
+[ext_resource type="Script" uid="uid://cisiwycunwsmu" path="res://scripts/core/game_controller.gd" id="1_gsayk"]
+[ext_resource type="PackedScene" uid="uid://davbv76audpo3" path="res://scenes/enemies/enemy_unit.tscn" id="2_gf1f2"]
+[ext_resource type="Resource" uid="uid://d0bploenn7ow0" path="res://resources/species/bulbasaur.tres" id="2_ma5rq"]
+[ext_resource type="PackedScene" uid="uid://sbcbw26v17o4" path="res://scenes/pokemon/ally_unit.tscn" id="5_gf1f2"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5vsmd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xlwwq"]
+albedo_color = Color(0.21960784, 0.54509807, 0.26666668, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xlwwq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xar0u"]
+albedo_color = Color(0.85882354, 0.8392157, 0.5058824, 1)
+
+[node name="Game" type="Node3D" unique_id=389136882]
+script = ExtResource("1_gsayk")
+enemy_scene = ExtResource("2_gf1f2")
+
+[node name="Battlefield" type="Node3D" parent="." unique_id=1855670448]
+
+[node name="ground" type="MeshInstance3D" parent="Battlefield" unique_id=1833596763]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("PlaneMesh_5vsmd")
+surface_material_override/0 = SubResource("StandardMaterial3D_xlwwq")
+
+[node name="PathVisual" type="Node3D" parent="Battlefield" unique_id=1174033028]
+
+[node name="PathSurface" type="MeshInstance3D" parent="Battlefield/PathVisual" unique_id=1675846263]
+transform = Transform3D(0.5, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0.03, 0)
+mesh = SubResource("PlaneMesh_xlwwq")
+surface_material_override/0 = SubResource("StandardMaterial3D_xar0u")
+
+[node name="SpawnPoint" type="Marker3D" parent="Battlefield" unique_id=462051291]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 9)
+
+[node name="GoalPoint" type="Marker3D" parent="Battlefield" unique_id=1248015295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -9)
+
+[node name="Waypoints" type="Node3D" parent="Battlefield" unique_id=681946968]
+
+[node name="Point1" type="Marker3D" parent="Battlefield/Waypoints" unique_id=2074636846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 3)
+
+[node name="Point2" type="Marker3D" parent="Battlefield/Waypoints" unique_id=343086161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -3)
+
+[node name="Units" type="Node3D" parent="Battlefield" unique_id=2024596243]
+
+[node name="PokemonUnit" parent="Battlefield/Units" unique_id=2122445873 instance=ExtResource("1_e64el")]
+species = ExtResource("2_ma5rq")
+
+[node name="AllyUnit" parent="Battlefield/Units" unique_id=1903717236 instance=ExtResource("5_gf1f2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.979686, 0, -1.1296043)
+species = ExtResource("2_ma5rq")
+
+[node name="SunLight" type="DirectionalLight3D" parent="." unique_id=307900473]
+transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 10, 0)
+
+[node name="GameCamera" type="Camera3D" parent="." unique_id=836878766]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.76604444, 0, 6, 7)
+keep_aspect = 0
+current = true
+size = 18.0

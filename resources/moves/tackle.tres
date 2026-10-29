@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MoveDefinition" format=3 uid="uid://blklye4ttyl35"]
+
+[ext_resource type="Script" uid="uid://ci2cdknspavo" path="res://scripts/combat/move_definition.gd" id="1_riq3k"]
+
+[resource]
+script = ExtResource("1_riq3k")
+move_id = &"tackle"
+display_name = "Tackle"
+metadata/_custom_type_script = "uid://ci2cdknspavo"

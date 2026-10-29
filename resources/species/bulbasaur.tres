@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PokemonSpecies" format=3 uid="uid://d0bploenn7ow0"]
+
+[ext_resource type="Script" uid="uid://bej8nu4pwtpfd" path="res://scripts/pokemon/pokemon_stats.gd" id="1_6jy2g"]
+[ext_resource type="Script" uid="uid://b86jg0v8cjkmi" path="res://scripts/pokemon/pokemon_species.gd" id="1_yfyl0"]
+
+[sub_resource type="Resource" id="Resource_6jy2g"]
+script = ExtResource("1_6jy2g")
+metadata/_custom_type_script = "uid://bej8nu4pwtpfd"
+
+[resource]
+script = ExtResource("1_yfyl0")
+species_id = &"bulbasaur"
+display_name = "Bulbasaur"
+national_dex_number = 1
+type_ids = Array[StringName]([&"grass", &"poison"])
+base_stats = SubResource("Resource_6jy2g")
+sprite_set_id = &"1"
+metadata/_custom_type_script = "uid://b86jg0v8cjkmi"
