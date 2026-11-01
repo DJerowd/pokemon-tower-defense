@@ -12,6 +12,9 @@ func _ready() -> void:
 	wave_manager.wave_completed.connect(_on_wave_completed)
 	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
 
+	wave_manager.base_health_changed.connect(_on_base_health_changed)
+	wave_manager.game_over.connect(_on_game_over)
+
 	wave_manager.start_waves()
 
 
@@ -31,3 +34,16 @@ func _on_wave_completed(wave_number: int) -> void:
 
 func _on_all_waves_completed() -> void:
 	print("Parabéns! Você concluiu todas as ondas.")
+
+func _on_base_health_changed(
+	current_health: int,
+	maximum_health: int
+) -> void:
+	print("Base: %d/%d HP" % [
+		current_health,
+		maximum_health
+	])
+
+
+func _on_game_over() -> void:
+	print("A partida terminou. Você perdeu!")

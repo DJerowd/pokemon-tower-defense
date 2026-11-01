@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://e81pp4lqjyl8"]
+
+[ext_resource type="Script" uid="uid://befdfvdsfer5f" path="res://scripts/ui/battle_hud.gd" id="1_dy3po"]
+
+[node name="BattleHUD" type="Control" unique_id=901231391]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dy3po")
+
+[node name="TopPanel" type="PanelContainer" parent="." unique_id=1304148958]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 100.0
+grow_horizontal = 2
+
+[node name="TopContent" type="HBoxContainer" parent="TopPanel" unique_id=707422262]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="BasePanel" type="VBoxContainer" parent="TopPanel/TopContent" unique_id=38069259]
+layout_mode = 2
+
+[node name="BaseLabel" type="Label" parent="TopPanel/TopContent/BasePanel" unique_id=840420809]
+layout_mode = 2
+text = "Base: 20 / 20 HP"
+
+[node name="BaseHealthBar" type="ProgressBar" parent="TopPanel/TopContent/BasePanel" unique_id=870417026]
+layout_mode = 2
+max_value = 20.0
+value = 20.0
+show_percentage = false
+
+[node name="WavePanel" type="VBoxContainer" parent="TopPanel/TopContent" unique_id=495752681]
+layout_mode = 2
+
+[node name="WaveLabel" type="Label" parent="TopPanel/TopContent/WavePanel" unique_id=572145776]
+layout_mode = 2
+text = "Aguardando início"
+
+[node name="EnemiesLabel" type="Label" parent="TopPanel/TopContent/WavePanel" unique_id=233116379]
+layout_mode = 2
+text = "Inimigos em campo: 0"
+
+[node name="ResultPanel" type="PanelContainer" parent="." unique_id=988980723]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResultLabel" type="Label" parent="ResultPanel" unique_id=1650610078]
+layout_mode = 2
+text = "Resultado da partida"

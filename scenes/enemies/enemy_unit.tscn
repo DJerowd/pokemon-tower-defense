@@ -4,22 +4,22 @@
 [ext_resource type="Script" uid="uid://dhg58pr42m0n6" path="res://scripts/combat/enemy_unit.gd" id="1_auvev"]
 [ext_resource type="Resource" uid="uid://d0bploenn7ow0" path="res://resources/species/bulbasaur.tres" id="2_uu61s"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v3ygw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uu61s"]
 atlas = ExtResource("1_amh56")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(448, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0c07g"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_28isk"]
 atlas = ExtResource("1_amh56")
-region = Rect2(32, 32, 32, 32)
+region = Rect2(480, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6jy2g"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v3ygw")
+"texture": SubResource("AtlasTexture_uu61s")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0c07g")
+"texture": SubResource("AtlasTexture_28isk")
 }],
 "loop": 1,
 "name": &"idle",
@@ -37,3 +37,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_6jy2g")
 animation = &"idle"
+frame = 1
+frame_progress = 0.22852686

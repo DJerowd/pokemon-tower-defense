@@ -8,6 +8,9 @@ signal defeated(enemy: EnemyUnit)
 @export var move_speed: float = 2.0
 @export var max_hp: int = 30
 
+@export_range(1, 100, 1)
+var leak_damage: int = 1
+
 var current_hp: int
 var path_points: Array[Vector3] = []
 var target_index: int = 0
