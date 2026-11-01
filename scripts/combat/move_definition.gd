@@ -13,5 +13,5 @@ enum DamageCategory {
 @export var category: DamageCategory = DamageCategory.PHYSICAL
 @export var power: int = 40
 @export var accuracy: float = 1.0
-@export var range: float = 3.0
+@export var attack_range: float = 1.0
 @export var cooldown: float = 1.0

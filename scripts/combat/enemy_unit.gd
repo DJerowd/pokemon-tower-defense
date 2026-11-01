@@ -14,7 +14,20 @@ var target_index: int = 0
 var is_finished: bool = false
 
 func _ready() -> void:
+	if species == null:
+		push_error("EnemyUnit: nenhuma espécie foi configurada.")
+		set_process(false)
+		return
+
+	if species.base_stats == null:
+		push_error("EnemyUnit: a espécie não possui atributos-base.")
+		set_process(false)
+		return
+
+	max_hp = species.base_stats.hp
 	current_hp = max_hp
+
+	add_to_group("enemies")
 
 func set_path(points: Array[Vector3]) -> void:
 	path_points = points.duplicate()

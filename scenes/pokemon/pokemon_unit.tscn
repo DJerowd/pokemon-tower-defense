@@ -11,6 +11,14 @@ region = Rect2(0, 32, 32, 32)
 atlas = ExtResource("1_7n7nc")
 region = Rect2(32, 32, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7hxb"]
+atlas = ExtResource("1_7n7nc")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5od6"]
+atlas = ExtResource("1_7n7nc")
+region = Rect2(32, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_xlwwq"]
 animations = [{
 "frames": [{
@@ -19,6 +27,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0c07g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7hxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5od6")
 }],
 "loop": 1,
 "name": &"idle",
@@ -35,5 +49,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_xlwwq")
 animation = &"idle"
-frame = 1
-frame_progress = 0.34933588
+frame_progress = 0.8858721
