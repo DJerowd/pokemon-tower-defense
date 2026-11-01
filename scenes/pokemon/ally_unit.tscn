@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://blklye4ttyl35" path="res://resources/moves/tackle.tres" id="3_3mli3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5vsmd"]
-radius = 0.24970895
+radius = 0.3
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v3ygw"]
 atlas = ExtResource("1_0t728")
@@ -36,20 +36,23 @@ species = ExtResource("2_vf7t4")
 move = ExtResource("3_3mli3")
 
 [node name="SelectionArea" type="Area3D" parent="." unique_id=540486102]
-collision_layer = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
+collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SelectionArea" unique_id=567477674]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
 shape = SubResource("SphereShape3D_5vsmd")
+debug_color = Color(0, 0.6, 0, 1)
 
 [node name="SpritePivot" type="Node3D" parent="." unique_id=325872446]
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SpritePivot" unique_id=1394629075]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
+billboard = 1
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_5vsmd")
 animation = &"idle"
-frame_progress = 0.957609
+frame_progress = 0.47386128
 
 [node name="AttackOrigin" type="Marker3D" parent="." unique_id=2045710152]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0.03)

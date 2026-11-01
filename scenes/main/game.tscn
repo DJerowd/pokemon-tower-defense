@@ -28,6 +28,14 @@ unit_selection_manager = NodePath("UnitSelectionManager")
 
 [node name="Battlefield" type="Node3D" parent="." unique_id=1855670448]
 
+[node name="BaseCore" type="Node3D" parent="Battlefield" unique_id=196753748]
+script = ExtResource("4_kjrfb")
+
+[node name="Units" type="Node3D" parent="Battlefield" unique_id=2024596243]
+
+[node name="AllySpawnPoint" type="Marker3D" parent="Battlefield" unique_id=2130511570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+
 [node name="ground" type="MeshInstance3D" parent="Battlefield" unique_id=1833596763]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
 mesh = SubResource("PlaneMesh_5vsmd")
@@ -35,16 +43,26 @@ surface_material_override/0 = SubResource("StandardMaterial3D_xlwwq")
 
 [node name="PathVisual" type="Node3D" parent="Battlefield" unique_id=1174033028]
 
-[node name="PathSurface" type="MeshInstance3D" parent="Battlefield/PathVisual" unique_id=1675846263]
-transform = Transform3D(0.5, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0.03, 0)
+[node name="PathSurface1" type="MeshInstance3D" parent="Battlefield/PathVisual" unique_id=1675846263]
+transform = Transform3D(0.5, 0, 0, 0, 20, 0, 0, 0, 10, 0, 0.03, -10)
+mesh = SubResource("PlaneMesh_xlwwq")
+surface_material_override/0 = SubResource("StandardMaterial3D_xar0u")
+
+[node name="PathSurface2" type="MeshInstance3D" parent="Battlefield/PathVisual" unique_id=1495418450]
+transform = Transform3D(0.5, 0, 0, 0, 10, 0, 0, 0, 0.5, 0, 0.03, 0)
+mesh = SubResource("PlaneMesh_xlwwq")
+surface_material_override/0 = SubResource("StandardMaterial3D_xar0u")
+
+[node name="PathSurface3" type="MeshInstance3D" parent="Battlefield/PathVisual" unique_id=415375076]
+transform = Transform3D(-2.1855694e-08, 0, 10, 0, 20, 0, -0.5, 0, -4.371139e-07, -10, 0.03, 0)
 mesh = SubResource("PlaneMesh_xlwwq")
 surface_material_override/0 = SubResource("StandardMaterial3D_xar0u")
 
 [node name="SpawnPoint" type="Marker3D" parent="Battlefield" unique_id=462051291]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.085, 0.03, 0)
 
 [node name="GoalPoint" type="Marker3D" parent="Battlefield" unique_id=1248015295]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -20)
 
 [node name="PathManager" type="Node3D" parent="Battlefield" unique_id=297511680]
 script = ExtResource("3_em1bs")
@@ -53,18 +71,13 @@ metadata/_custom_type_script = "uid://cwse2fgp5fw50"
 [node name="Waypoints" type="Node3D" parent="Battlefield" unique_id=681946968]
 
 [node name="Point1" type="Marker3D" parent="Battlefield/Waypoints" unique_id=2074636846]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.03, 0)
 
-[node name="Point2" type="Marker3D" parent="Battlefield/Waypoints" unique_id=343086161]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -3)
+[node name="Point2" type="Marker3D" parent="Battlefield/Waypoints" unique_id=1160450920]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
 
-[node name="Units" type="Node3D" parent="Battlefield" unique_id=2024596243]
-
-[node name="AllyUnit" parent="Battlefield/Units" unique_id=1903717236 instance=ExtResource("5_gf1f2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.979686, 0, -1.1296043)
-
-[node name="BaseCore" type="Node3D" parent="Battlefield" unique_id=196753748]
-script = ExtResource("4_kjrfb")
+[node name="Point3" type="Marker3D" parent="Battlefield/Waypoints" unique_id=343086161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -10)
 
 [node name="SunLight" type="DirectionalLight3D" parent="." unique_id=307900473]
 transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 10, 0)
@@ -88,3 +101,11 @@ script = ExtResource("9_ktwa8")
 
 [node name="BattleHUD" parent="." unique_id=901231391 node_paths=PackedStringArray("wave_manager") instance=ExtResource("9_se30j")]
 wave_manager = NodePath("../WaveManager")
+
+[node name="GameController" type="Node3D" parent="." unique_id=1463009763 node_paths=PackedStringArray("units_container", "ally_spawn_point", "wave_manager", "unit_selection_manager")]
+script = ExtResource("1_gsayk")
+ally_unit_scene = ExtResource("5_gf1f2")
+units_container = NodePath("../Battlefield/Units")
+ally_spawn_point = NodePath("../Battlefield/AllySpawnPoint")
+wave_manager = NodePath("../WaveManager")
+unit_selection_manager = NodePath("../UnitSelectionManager")

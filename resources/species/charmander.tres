@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PokemonSpecies" format=3 uid="uid://di84uskgmjg72"]
+
+[ext_resource type="Script" uid="uid://bej8nu4pwtpfd" path="res://scripts/pokemon/pokemon_stats.gd" id="1_wutn2"]
+[ext_resource type="Script" uid="uid://b86jg0v8cjkmi" path="res://scripts/pokemon/pokemon_species.gd" id="2_6rydj"]
+[ext_resource type="Texture2D" uid="uid://bdu3fwwf4kxe8" path="res://assets/pokemon/Pokemon Overworld Sprites.png" id="2_r5pog"]
+
+[sub_resource type="Resource" id="Resource_6jy2g"]
+script = ExtResource("1_wutn2")
+hp = 39
+attack = 52
+defense = 43
+special_attack = 50
+special_defense = 60
+speed = 65
+metadata/_custom_type_script = "uid://bej8nu4pwtpfd"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx4ct"]
+atlas = ExtResource("2_r5pog")
+region = Rect2(256, 32, 32, 32)
+
+[resource]
+script = ExtResource("2_6rydj")
+species_id = &"charmander"
+display_name = "Charmander"
+national_dex_number = 4
+type_ids = Array[StringName]([&"fire"])
+base_stats = SubResource("Resource_6jy2g")
+sprite_set_id = &"4"
+portrait = SubResource("AtlasTexture_wx4ct")
+metadata/_custom_type_script = "uid://b86jg0v8cjkmi"

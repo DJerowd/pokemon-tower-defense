@@ -3,14 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://bdu3fwwf4kxe8" path="res://assets/pokemon/Pokemon Overworld Sprites.png" id="1_7n7nc"]
 [ext_resource type="Script" uid="uid://cjikqwx50la7e" path="res://scripts/pokemon/pokemon_unit.gd" id="1_v3ygw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v3ygw"]
-atlas = ExtResource("1_7n7nc")
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0c07g"]
-atlas = ExtResource("1_7n7nc")
-region = Rect2(32, 32, 32, 32)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_v7hxb"]
 atlas = ExtResource("1_7n7nc")
 region = Rect2(0, 0, 32, 32)
@@ -19,15 +11,17 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("1_7n7nc")
 region = Rect2(32, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3ygw"]
+atlas = ExtResource("1_7n7nc")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0c07g"]
+atlas = ExtResource("1_7n7nc")
+region = Rect2(32, 32, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_xlwwq"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v3ygw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0c07g")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v7hxb")
 }, {
@@ -35,7 +29,18 @@ animations = [{
 "texture": SubResource("AtlasTexture_e5od6")
 }],
 "loop": 1,
-"name": &"idle",
+"name": &"idle_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3ygw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0c07g")
+}],
+"loop": 1,
+"name": &"idle_front",
 "speed": 5.0
 }]
 
@@ -47,6 +52,7 @@ script = ExtResource("1_v3ygw")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SpritePivot" unique_id=1883730840]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
 billboard = 1
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_xlwwq")
-animation = &"idle"
-frame_progress = 0.8858721
+animation = &"idle_front"
+frame_progress = 0.9325837

@@ -13,8 +13,22 @@ signal deselected
 var attack_timer: float = 0.0
 var current_target: EnemyUnit
 var is_selected: bool = false
+var pokemon_instance: PokemonInstance
 
+func configure_from_instance(instance: PokemonInstance) -> bool:
+	if instance == null:
+		push_error("Não foi possível configurar o aliado: instância inválida.")
+		return false
 
+	if instance.species == null:
+		push_error("Não foi possível configurar o aliado: espécie inválida.")
+		return false
+
+	pokemon_instance = instance
+	species = instance.species
+
+	return true
+	
 func _ready() -> void:
 	if species == null:
 		push_error("AllyUnit: nenhuma espécie foi configurada.")
@@ -24,13 +38,12 @@ func _ready() -> void:
 	if move == null:
 		push_error("AllyUnit: nenhum movimento foi configurado.")
 
-
 func _process(delta: float) -> void:
 	if species == null or species.base_stats == null or move == null:
 		return
 
-	if not is_instance_valid(current_target):
-		current_target = find_nearest_enemy()
+	# Atualiza o alvo, priorizando inimigos que podem ser atacados.
+	current_target = find_best_target()
 
 	if not is_instance_valid(current_target):
 		return
@@ -43,10 +56,7 @@ func _process(delta: float) -> void:
 		current_target.global_position
 	)
 
-	if distance > detection_range:
-		current_target = null
-		return
-
+	# O inimigo ainda não está no alcance de ataque.
 	if distance > move.attack_range:
 		return
 
@@ -54,35 +64,48 @@ func _process(delta: float) -> void:
 
 	if attack_timer <= 0.0:
 		attack_target()
+
 		attack_timer = maxf(attack_interval, move.cooldown)
 
-
-func find_nearest_enemy() -> EnemyUnit:
+func find_best_target() -> EnemyUnit:
 	var enemies := get_tree().get_nodes_in_group("enemies")
 
-	var nearest: EnemyUnit = null
-	var nearest_distance: float = detection_range
+	var nearest_attackable: EnemyUnit = null
+	var nearest_detected: EnemyUnit = null
+
+	var nearest_attack_distance: float = INF
+	var nearest_detection_distance: float = INF
 
 	for node in enemies:
 		var enemy := node as EnemyUnit
 
-		if enemy == null or enemy.is_finished:
+		if enemy == null or not is_instance_valid(enemy):
+			continue
+
+		if enemy.is_finished:
 			continue
 
 		var distance := global_position.distance_to(
 			enemy.global_position
 		)
 
-		if distance < nearest_distance:
-			nearest_distance = distance
-			nearest = enemy
+		if distance <= move.attack_range:
+			if distance < nearest_attack_distance:
+				nearest_attack_distance = distance
+				nearest_attackable = enemy
 
-	return nearest
+		elif distance <= detection_range:
+			if distance < nearest_detection_distance:
+				nearest_detection_distance = distance
+				nearest_detected = enemy
 
+	if nearest_attackable != null:
+		return nearest_attackable
+
+	return nearest_detected
 
 func set_target(enemy: EnemyUnit) -> void:
 	current_target = enemy
-
 
 func attack_target() -> void:
 	if not is_instance_valid(current_target):
@@ -138,9 +161,17 @@ func attack_target() -> void:
 		move.power
 	)
 
+	print(
+		"%s atacou %s causando %d de dano."
+		% [
+			species.display_name,
+			current_target.species.display_name,
+			damage
+		]
+	)
+
 	current_target.take_damage(damage)
 	enemy_attacked.emit(current_target, damage)
-
 
 func calculate_damage(
 	attack_stat: int,
@@ -174,17 +205,28 @@ func _on_selection_area_input_event(
 	normal: Vector3,
 	shape_idx: int
 ) -> void:
-	if not (event is InputEventMouseButton):
+
+	# Ignora movimentos do mouse e outros eventos.
+	if not event is InputEventMouseButton:
 		return
 
-	if event.button_index != MOUSE_BUTTON_LEFT or not event.pressed:
+	# Aceita somente o clique esquerdo pressionado.
+	if event.button_index != MOUSE_BUTTON_LEFT:
 		return
+
+	if not event.pressed:
+		return
+
+	print("Clique esquerdo detectado no Pokémon!")
 
 	get_viewport().set_input_as_handled()
 
 	var manager := get_tree().get_first_node_in_group(
-		"unit_selection_manager"
+        "unit_selection_manager"
 	) as UnitSelectionManager
 
 	if manager != null:
+		print("UnitSelectionManager encontrado. Selecionando Pokémon.")
 		manager.select_unit(self)
+	else:
+		push_warning("UnitSelectionManager não encontrado!")

@@ -12,4 +12,4 @@ var enemy_count: int = 5
 var spawn_interval: float = 1.5
 
 @export_range(0.1, 20.0, 0.1)
-var enemy_move_speed: float = 2.0
+var enemy_move_speed: float = 1.0

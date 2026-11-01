@@ -1,5 +1,9 @@
 extends Node3D
 
+@export_group("Configuração do aliado")
+@export var ally_unit_scene: PackedScene
+@export var units_container: Node3D
+@export var ally_spawn_point: Marker3D
 @export var wave_manager: WaveManager
 @export var unit_selection_manager: UnitSelectionManager
 
@@ -13,6 +17,8 @@ const GAME_SPEEDS: Array[float] = [1.0, 2.0]
 var current_speed_index: int = 0
 
 func _ready() -> void:
+	get_viewport().physics_object_picking = true
+
 	if wave_manager == null:
 		push_error("GameController: configure o WaveManager.")
 		return
@@ -37,7 +43,7 @@ func _ready() -> void:
 	else:
 		push_warning("GameController: BattleHUD não encontrado.")
 
-	wave_manager.start_waves()
+	_prepare_battle()
 
 func _on_wave_started(
 	wave_number: int,
@@ -113,3 +119,41 @@ func reset_game_settings() -> void:
 	is_paused = false
 	current_speed = 1.0
 	current_speed_index = 0
+
+func _prepare_battle() -> void:
+	if not GameSession.has_chosen_starter():
+		push_error("Não é possível iniciar a batalha sem um Pokémon inicial.")
+		return
+
+	if ally_unit_scene == null:
+		push_error("A cena do aliado não foi configurada no GameController.")
+		return
+
+	if units_container == null:
+		push_error("O contêiner de unidades não foi configurado.")
+		return
+
+	if ally_spawn_point == null:
+		push_error("O ponto de surgimento do aliado não foi configurado.")
+		return
+
+	if wave_manager == null:
+		push_error("O WaveManager não foi configurado.")
+		return
+
+	var starter: PokemonInstance = GameSession.starter_instance
+
+	var ally: AllyUnit = ally_unit_scene.instantiate() as AllyUnit
+
+	if ally == null:
+		push_error("A cena configurada não possui um AllyUnit válido.")
+		return
+
+	if not ally.configure_from_instance(starter):
+		ally.free()
+		return
+
+	units_container.add_child(ally)
+	ally.global_transform = ally_spawn_point.global_transform
+
+	wave_manager.start_waves()

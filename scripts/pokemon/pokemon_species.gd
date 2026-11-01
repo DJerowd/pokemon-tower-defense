@@ -10,3 +10,5 @@ extends Resource
 
 @export var sprite_set_id: StringName
 @export var capture_rate: int = 45
+
+@export var portrait: Texture2D

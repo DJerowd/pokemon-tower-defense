@@ -12,6 +12,30 @@ region = Rect2(448, 0, 32, 32)
 atlas = ExtResource("1_amh56")
 region = Rect2(480, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wsmam"]
+atlas = ExtResource("1_amh56")
+region = Rect2(448, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shdhh"]
+atlas = ExtResource("1_amh56")
+region = Rect2(480, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nx8bg"]
+atlas = ExtResource("1_amh56")
+region = Rect2(448, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hiyw8"]
+atlas = ExtResource("1_amh56")
+region = Rect2(480, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i50h0"]
+atlas = ExtResource("1_amh56")
+region = Rect2(448, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_orhjm"]
+atlas = ExtResource("1_amh56")
+region = Rect2(480, 32, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_6jy2g"]
 animations = [{
 "frames": [{
@@ -22,7 +46,40 @@ animations = [{
 "texture": SubResource("AtlasTexture_28isk")
 }],
 "loop": 1,
-"name": &"idle",
+"name": &"idle_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wsmam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shdhh")
+}],
+"loop": 1,
+"name": &"idle_back_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nx8bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hiyw8")
+}],
+"loop": 1,
+"name": &"idle_back_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i50h0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_orhjm")
+}],
+"loop": 1,
+"name": &"idle_front",
 "speed": 5.0
 }]
 
@@ -35,7 +92,7 @@ species = ExtResource("2_uu61s")
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SpritePivot" unique_id=863994333]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
 billboard = 1
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_6jy2g")
-animation = &"idle"
-frame = 1
-frame_progress = 0.22852686
+animation = &"idle_back_right"
+frame_progress = 0.8333157

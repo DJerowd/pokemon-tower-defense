@@ -1,5 +1,11 @@
 [gd_scene format=3 uid="uid://dmfd6lrlfhf1p"]
 
+[ext_resource type="Script" uid="uid://dr0xjqet1u8lc" path="res://scripts/ui/starter_selection.gd" id="1_60t0d"]
+[ext_resource type="Script" uid="uid://b86jg0v8cjkmi" path="res://scripts/pokemon/pokemon_species.gd" id="2_vd2yv"]
+[ext_resource type="Resource" uid="uid://d0bploenn7ow0" path="res://resources/species/bulbasaur.tres" id="3_g33ru"]
+[ext_resource type="Resource" uid="uid://ckdymrg81gu3e" path="res://resources/species/squirtle.tres" id="4_li016"]
+[ext_resource type="Resource" uid="uid://di84uskgmjg72" path="res://resources/species/charmander.tres" id="5_uouue"]
+
 [node name="StarterSelection" type="Control" unique_id=96671781]
 layout_mode = 3
 anchors_preset = 15
@@ -7,51 +13,64 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_60t0d")
+available_starters = Array[ExtResource("2_vd2yv")]([ExtResource("3_g33ru"), ExtResource("4_li016"), ExtResource("5_uouue")])
 
-[node name="Title" type="Label" parent="." unique_id=1196525863]
+[node name="MainContainer" type="VBoxContainer" parent="." unique_id=2126869565]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -22.5
-offset_right = 22.5
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "Escolha um Pokémon"
-
-[node name="PokemonOptions" type="HBoxContainer" parent="." unique_id=504205590]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 24
 
-[node name="Description" type="Label" parent="." unique_id=352045647]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -23.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="TitleLabel" type="Label" parent="MainContainer" unique_id=1196525863]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Escolha seu Pokémon inicial"
 
-[node name="ConfirmButton" type="Button" parent="." unique_id=1174685394]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.688
-anchor_right = 0.5
-anchor_bottom = 0.688
-offset_left = -4.0
-offset_top = 194.176
-offset_right = 4.0
-offset_bottom = 202.176
-grow_horizontal = 2
-grow_vertical = 0
+[node name="Content" type="HBoxContainer" parent="MainContainer" unique_id=504205590]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PokemonInfo" type="VBoxContainer" parent="MainContainer/Content" unique_id=1785652380]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PokemonPortrait" type="TextureRect" parent="MainContainer/Content/PokemonInfo" unique_id=163314428]
+texture_filter = 1
+custom_minimum_size = Vector2(240, 240)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="PokemonName" type="Label" parent="MainContainer/Content/PokemonInfo" unique_id=1425043212]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PokemonNumber" type="Label" parent="MainContainer/Content/PokemonInfo" unique_id=1826337353]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PokemonTypes" type="Label" parent="MainContainer/Content/PokemonInfo" unique_id=564026876]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Navigation" type="HBoxContainer" parent="MainContainer/Content" unique_id=1492621912]
+layout_mode = 2
+
+[node name="PreviousButton" type="Button" parent="MainContainer/Content/Navigation" unique_id=509465821]
+layout_mode = 2
+text = "Anterior"
+
+[node name="NextButton" type="Button" parent="MainContainer/Content/Navigation" unique_id=439848525]
+layout_mode = 2
+text = "Próximo"
+
+[node name="DescriptionLabel" type="Label" parent="MainContainer" unique_id=352045647]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ConfirmButton" type="Button" parent="MainContainer" unique_id=1174685394]
+layout_mode = 2
+text = "Escolher este Pokémon"

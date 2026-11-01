@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="PokemonSpecies" format=3 uid="uid://ckdymrg81gu3e"]
+
+[ext_resource type="Script" uid="uid://bej8nu4pwtpfd" path="res://scripts/pokemon/pokemon_stats.gd" id="1_4pw6n"]
+[ext_resource type="Texture2D" uid="uid://bdu3fwwf4kxe8" path="res://assets/pokemon/Pokemon Overworld Sprites.png" id="2_phh8j"]
+[ext_resource type="Script" uid="uid://b86jg0v8cjkmi" path="res://scripts/pokemon/pokemon_species.gd" id="2_ufxnf"]
+
+[sub_resource type="Resource" id="Resource_6jy2g"]
+script = ExtResource("1_4pw6n")
+hp = 44
+attack = 48
+defense = 65
+special_attack = 50
+special_defense = 64
+speed = 43
+metadata/_custom_type_script = "uid://bej8nu4pwtpfd"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbgqq"]
+atlas = ExtResource("2_phh8j")
+region = Rect2(448, 32, 32, 32)
+
+[resource]
+script = ExtResource("2_ufxnf")
+species_id = &"squirtle"
+display_name = "Squirtle"
+national_dex_number = 7
+type_ids = Array[StringName]([&"water"])
+base_stats = SubResource("Resource_6jy2g")
+sprite_set_id = &"7"
+portrait = SubResource("AtlasTexture_kbgqq")
+metadata/_custom_type_script = "uid://b86jg0v8cjkmi"

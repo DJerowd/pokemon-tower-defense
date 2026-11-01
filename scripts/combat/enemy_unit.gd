@@ -67,13 +67,24 @@ func _process(delta: float) -> void:
 	)
 
 func take_damage(amount: int) -> void:
-	if is_finished or amount <= 0:
+	if is_finished:
 		return
 
-	current_hp -= amount
+	current_hp = maxi(0, current_hp - amount)
+
+	print(
+        "Inimigo: %s | HP: %d/%d | Dano recebido: %d"
+		% [
+			species.display_name,
+			current_hp,
+			max_hp,
+			amount
+		]
+	)
 
 	if current_hp <= 0:
-		current_hp = 0
+		print("INIMIGO DERROTADO: ", species.display_name)
+
 		is_finished = true
 		defeated.emit(self)
 		queue_free()
