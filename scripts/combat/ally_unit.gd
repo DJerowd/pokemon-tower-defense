@@ -2,6 +2,8 @@ class_name AllyUnit
 extends Node3D
 
 signal enemy_attacked(enemy: EnemyUnit, damage: int)
+signal selected
+signal deselected
 
 @export var species: PokemonSpecies
 @export var move: MoveDefinition
@@ -10,6 +12,7 @@ signal enemy_attacked(enemy: EnemyUnit, damage: int)
 
 var attack_timer: float = 0.0
 var current_target: EnemyUnit
+var is_selected: bool = false
 
 
 func _ready() -> void:
@@ -152,3 +155,36 @@ func calculate_damage(
 	)
 
 	return maxi(1, int(round(damage)))
+
+func set_selected(value: bool) -> void:
+	if is_selected == value:
+		return
+
+	is_selected = value
+
+	if is_selected:
+		selected.emit()
+	else:
+		deselected.emit()
+
+func _on_selection_area_input_event(
+	camera: Node,
+	event: InputEvent,
+	event_position: Vector3,
+	normal: Vector3,
+	shape_idx: int
+) -> void:
+	if not (event is InputEventMouseButton):
+		return
+
+	if event.button_index != MOUSE_BUTTON_LEFT or not event.pressed:
+		return
+
+	get_viewport().set_input_as_handled()
+
+	var manager := get_tree().get_first_node_in_group(
+		"unit_selection_manager"
+	) as UnitSelectionManager
+
+	if manager != null:
+		manager.select_unit(self)

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://befdfvdsfer5f" path="res://scripts/ui/battle_hud.gd" id="1_dy3po"]
 
 [node name="BattleHUD" type="Control" unique_id=901231391]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,3 +68,28 @@ grow_vertical = 2
 [node name="ResultLabel" type="Label" parent="ResultPanel" unique_id=1650610078]
 layout_mode = 2
 text = "Resultado da partida"
+
+[node name="BottomPanel" type="PanelContainer" parent="." unique_id=218396799]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -65.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ControlsContainer" type="HBoxContainer" parent="BottomPanel" unique_id=890570572]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PauseButton" type="Button" parent="BottomPanel/ControlsContainer" unique_id=276640249]
+layout_mode = 2
+text = "Pausar"
+
+[node name="SpeedButton" type="Button" parent="BottomPanel/ControlsContainer" unique_id=1688236779]
+layout_mode = 2
+text = "Velocidade: 1x"

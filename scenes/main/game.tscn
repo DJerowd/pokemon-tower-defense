@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://sbcbw26v17o4" path="res://scenes/pokemon/ally_unit.tscn" id="5_gf1f2"]
 [ext_resource type="Script" uid="uid://byegc7wv2o28n" path="res://scripts/combat/wave_definition.gd" id="6_kjrfb"]
 [ext_resource type="Resource" uid="uid://de6bpx4x42sx4" path="res://resources/waves/wave_01.tres" id="7_se30j"]
+[ext_resource type="Script" uid="uid://cy6eate2evheq" path="res://scripts/core/unit_selection_manager.gd" id="9_ktwa8"]
 [ext_resource type="PackedScene" uid="uid://e81pp4lqjyl8" path="res://scenes/ui/battle_hud.tscn" id="9_se30j"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5vsmd"]
@@ -20,9 +21,10 @@ albedo_color = Color(0.21960784, 0.54509807, 0.26666668, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xar0u"]
 albedo_color = Color(0.85882354, 0.8392157, 0.5058824, 1)
 
-[node name="Game" type="Node3D" unique_id=389136882 node_paths=PackedStringArray("wave_manager")]
+[node name="Game" type="Node3D" unique_id=389136882 node_paths=PackedStringArray("wave_manager", "unit_selection_manager")]
 script = ExtResource("1_gsayk")
 wave_manager = NodePath("WaveManager")
+unit_selection_manager = NodePath("UnitSelectionManager")
 
 [node name="Battlefield" type="Node3D" parent="." unique_id=1855670448]
 
@@ -63,7 +65,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.979686, 0, -1.1296043)
 
 [node name="BaseCore" type="Node3D" parent="Battlefield" unique_id=196753748]
 script = ExtResource("4_kjrfb")
-max_health = 1
 
 [node name="SunLight" type="DirectionalLight3D" parent="." unique_id=307900473]
 transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 10, 0)
@@ -81,6 +82,9 @@ path_manager = NodePath("../Battlefield/PathManager")
 units_container = NodePath("../Battlefield/Units")
 base_core = NodePath("../Battlefield/BaseCore")
 waves = Array[ExtResource("6_kjrfb")]([ExtResource("7_se30j")])
+
+[node name="UnitSelectionManager" type="Node" parent="." unique_id=340978682]
+script = ExtResource("9_ktwa8")
 
 [node name="BattleHUD" parent="." unique_id=901231391 node_paths=PackedStringArray("wave_manager") instance=ExtResource("9_se30j")]
 wave_manager = NodePath("../WaveManager")

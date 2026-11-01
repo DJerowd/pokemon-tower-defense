@@ -11,8 +11,15 @@ extends Control
 @onready var result_panel: PanelContainer = $ResultPanel
 @onready var result_label: Label = $ResultPanel/ResultLabel
 
+@onready var pause_button: Button = $BottomPanel/ControlsContainer/PauseButton
+@onready var speed_button: Button = $BottomPanel/ControlsContainer/SpeedButton
+
+signal pause_requested
+signal speed_change_requested
 
 func _ready() -> void:
+	pause_button.pressed.connect(_on_pause_button_pressed)
+	speed_button.pressed.connect(_on_speed_button_pressed)
 	result_panel.hide()
 
 	if wave_manager == null:
@@ -27,7 +34,6 @@ func _ready() -> void:
 
 	_initialize_hud()
 
-
 func _initialize_hud() -> void:
 	if wave_manager.base_core == null:
 		push_error("BattleHUD: BaseCore não configurada no WaveManager.")
@@ -40,7 +46,6 @@ func _initialize_hud() -> void:
 
 	_update_enemy_count(wave_manager.active_enemies.size())
 
-
 func _on_wave_started(
 	wave_number: int,
 	wave: WaveDefinition
@@ -50,21 +55,17 @@ func _on_wave_started(
 		wave.display_name
 	]
 
-
 func _on_enemy_count_changed(active_count: int) -> void:
 	_update_enemy_count(active_count)
 
-
 func _update_enemy_count(active_count: int) -> void:
 	enemies_label.text = "Inimigos em campo: %d" % active_count
-
 
 func _on_base_health_changed(
 	current_health: int,
 	maximum_health: int
 ) -> void:
 	_update_base_health(current_health, maximum_health)
-
 
 func _update_base_health(
 	current_health: int,
@@ -78,15 +79,24 @@ func _update_base_health(
 		maximum_health
 	]
 
-
 func _on_victory() -> void:
 	_show_result("VITÓRIA!\nTodas as ondas foram concluídas.")
-
 
 func _on_game_over() -> void:
 	_show_result("DERROTA!\nA base foi destruída.")
 
-
 func _show_result(message: String) -> void:
 	result_label.text = message
 	result_panel.show()
+
+func _on_pause_button_pressed() -> void:
+	pause_requested.emit()
+
+func _on_speed_button_pressed() -> void:
+	speed_change_requested.emit()
+
+func update_pause_button(is_paused: bool) -> void:
+	pause_button.text = "Retomar" if is_paused else "Pausar"
+
+func update_speed_button(speed: float) -> void:
+	speed_button.text = "Velocidade: %.0fx" % speed

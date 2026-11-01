@@ -85,7 +85,8 @@ func start_waves() -> void:
 
 			if enemy_index < wave.enemy_count - 1:
 				await get_tree().create_timer(
-					wave.spawn_interval
+					wave.spawn_interval,
+					false
 				).timeout
 
 		if is_game_over:
@@ -104,7 +105,8 @@ func start_waves() -> void:
 
 		if index < waves.size() - 1:
 			await get_tree().create_timer(
-				time_between_waves
+				time_between_waves,
+				false
 			).timeout
 
 	is_running = false

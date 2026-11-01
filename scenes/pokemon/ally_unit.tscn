@@ -5,6 +5,9 @@
 [ext_resource type="Resource" uid="uid://d0bploenn7ow0" path="res://resources/species/bulbasaur.tres" id="2_vf7t4"]
 [ext_resource type="Resource" uid="uid://blklye4ttyl35" path="res://resources/moves/tackle.tres" id="3_3mli3"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_5vsmd"]
+radius = 0.24970895
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_v3ygw"]
 atlas = ExtResource("1_0t728")
 region = Rect2(0, 32, 32, 32)
@@ -32,14 +35,23 @@ script = ExtResource("1_gckfb")
 species = ExtResource("2_vf7t4")
 move = ExtResource("3_3mli3")
 
+[node name="SelectionArea" type="Area3D" parent="." unique_id=540486102]
+collision_layer = 3
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SelectionArea" unique_id=567477674]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
+shape = SubResource("SphereShape3D_5vsmd")
+
 [node name="SpritePivot" type="Node3D" parent="." unique_id=325872446]
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="SpritePivot" unique_id=1394629075]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0)
-billboard = 1
 sprite_frames = SubResource("SpriteFrames_5vsmd")
 animation = &"idle"
 frame_progress = 0.957609
 
 [node name="AttackOrigin" type="Marker3D" parent="." unique_id=2045710152]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.165, 0.03)
+
+[connection signal="input_event" from="SelectionArea" to="." method="_on_selection_area_input_event"]
