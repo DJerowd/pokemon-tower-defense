@@ -1,59 +1,33 @@
 extends Node3D
 
-@export var enemy_scene: PackedScene
-@export var path_manager: PathManager
+@export var wave_manager: WaveManager
 
-@onready var units: Node3D = $Battlefield/Units
-
-var active_enemies: Array[EnemyUnit] = []
 
 func _ready() -> void:
-	if enemy_scene == null:
-		push_warning("Configure a cena do inimigo no Inspector.")
+	if wave_manager == null:
+		push_error("GameController: configure o WaveManager.")
 		return
 
-	if path_manager == null:
-		push_warning("Configure o PathManager no Inspector.")
-		return
+	wave_manager.wave_started.connect(_on_wave_started)
+	wave_manager.wave_completed.connect(_on_wave_completed)
+	wave_manager.all_waves_completed.connect(_on_all_waves_completed)
 
-	spawn_test_enemy()
+	wave_manager.start_waves()
 
-func spawn_test_enemy() -> void:
-	var enemy := enemy_scene.instantiate() as EnemyUnit
 
-	if enemy == null:
-		push_error("A cena configurada não possui o script EnemyUnit.")
-		return
+func _on_wave_started(
+	wave_number: int,
+	wave: WaveDefinition
+) -> void:
+	print("Onda %d iniciada: %s" % [
+		wave_number,
+		wave.display_name
+	])
 
-	units.add_child(enemy)
-	enemy.set_path(path_manager.get_waypoints())
 
-	enemy.reached_goal.connect(_on_enemy_reached_goal)
-	enemy.defeated.connect(_on_enemy_defeated)
-	active_enemies.append(enemy)
+func _on_wave_completed(wave_number: int) -> void:
+	print("Onda %d finalizada." % wave_number)
 
-func get_nearest_enemy(from_position: Vector3) -> EnemyUnit:
-	var nearest: EnemyUnit = null
-	var nearest_distance: float = INF
 
-	for enemy in active_enemies:
-		if not is_instance_valid(enemy) or enemy.is_finished:
-			continue
-
-		var distance := from_position.distance_to(
-			enemy.global_position
-		)
-
-		if distance < nearest_distance:
-			nearest_distance = distance
-			nearest = enemy
-
-	return nearest
-
-func _on_enemy_reached_goal(enemy: EnemyUnit) -> void:
-	active_enemies.erase(enemy)
-	print("O inimigo chegou à saída!")
-
-func _on_enemy_defeated(enemy: EnemyUnit) -> void:
-	active_enemies.erase(enemy)
-	print("O inimigo foi derrotado!")
+func _on_all_waves_completed() -> void:
+	print("Parabéns! Você concluiu todas as ondas.")

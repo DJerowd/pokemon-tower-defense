@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cisiwycunwsmu" path="res://scripts/core/game_controller.gd" id="1_gsayk"]
 [ext_resource type="PackedScene" uid="uid://davbv76audpo3" path="res://scenes/enemies/enemy_unit.tscn" id="2_gf1f2"]
-[ext_resource type="Resource" uid="uid://d0bploenn7ow0" path="res://resources/species/bulbasaur.tres" id="2_ma5rq"]
 [ext_resource type="Script" uid="uid://cwse2fgp5fw50" path="res://scripts/core/path_manager.gd" id="3_em1bs"]
+[ext_resource type="Script" uid="uid://dpgb81it0vw8k" path="res://scripts/combat/wave_manager.gd" id="5_0rn35"]
 [ext_resource type="PackedScene" uid="uid://sbcbw26v17o4" path="res://scenes/pokemon/ally_unit.tscn" id="5_gf1f2"]
+[ext_resource type="Script" uid="uid://byegc7wv2o28n" path="res://scripts/combat/wave_definition.gd" id="6_kjrfb"]
+[ext_resource type="Resource" uid="uid://de6bpx4x42sx4" path="res://resources/waves/wave_01.tres" id="7_se30j"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_5vsmd"]
 
@@ -16,10 +18,9 @@ albedo_color = Color(0.21960784, 0.54509807, 0.26666668, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xar0u"]
 albedo_color = Color(0.85882354, 0.8392157, 0.5058824, 1)
 
-[node name="Game" type="Node3D" unique_id=389136882 node_paths=PackedStringArray("path_manager")]
+[node name="Game" type="Node3D" unique_id=389136882 node_paths=PackedStringArray("wave_manager")]
 script = ExtResource("1_gsayk")
-enemy_scene = ExtResource("2_gf1f2")
-path_manager = NodePath("Battlefield/PathManager")
+wave_manager = NodePath("WaveManager")
 
 [node name="Battlefield" type="Node3D" parent="." unique_id=1855670448]
 
@@ -57,7 +58,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -3)
 
 [node name="AllyUnit" parent="Battlefield/Units" unique_id=1903717236 instance=ExtResource("5_gf1f2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.979686, 0, -1.1296043)
-species = ExtResource("2_ma5rq")
 
 [node name="SunLight" type="DirectionalLight3D" parent="." unique_id=307900473]
 transform = Transform3D(0.8660254, 0.3535534, -0.3535534, 0, 0.7071068, 0.7071068, 0.5, -0.61237246, 0.61237246, 0, 10, 0)
@@ -67,3 +67,10 @@ transform = Transform3D(1, 0, 0, 0, 0.76604444, 0.6427876, 0, -0.6427876, 0.7660
 keep_aspect = 0
 current = true
 size = 18.0
+
+[node name="WaveManager" type="Node" parent="." unique_id=561439370 node_paths=PackedStringArray("path_manager", "units_container")]
+script = ExtResource("5_0rn35")
+enemy_scene = ExtResource("2_gf1f2")
+path_manager = NodePath("../Battlefield/PathManager")
+units_container = NodePath("../Battlefield/Units")
+waves = Array[ExtResource("6_kjrfb")]([ExtResource("7_se30j")])

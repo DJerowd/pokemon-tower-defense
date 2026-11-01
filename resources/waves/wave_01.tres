@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WaveDefinition" format=3 uid="uid://de6bpx4x42sx4"]
+
+[ext_resource type="Script" uid="uid://byegc7wv2o28n" path="res://scripts/combat/wave_definition.gd" id="1_kbsj7"]
+[ext_resource type="Resource" uid="uid://d0bploenn7ow0" path="res://resources/species/bulbasaur.tres" id="1_we5xl"]
+
+[resource]
+script = ExtResource("1_kbsj7")
+display_name = "Primeira onda"
+enemy_species = ExtResource("1_we5xl")
+metadata/_custom_type_script = "uid://byegc7wv2o28n"

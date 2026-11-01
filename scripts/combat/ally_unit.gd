@@ -1,4 +1,3 @@
-
 class_name AllyUnit
 extends Node3D
 
@@ -90,7 +89,14 @@ func attack_target() -> void:
 		current_target = null
 		return
 
-	# Valida os dados da espécie inimiga.
+	if species == null or species.base_stats == null:
+		push_warning("O aliado não possui atributos configurados.")
+		return
+
+	if move == null:
+		push_warning("O aliado não possui um movimento configurado.")
+		return
+
 	if current_target.species == null:
 		push_warning("O inimigo não possui uma espécie configurada.")
 		current_target = null
@@ -101,8 +107,27 @@ func attack_target() -> void:
 		current_target = null
 		return
 
-	var attack_stat: int = species.base_stats.attack
-	var defense_stat: int = current_target.species.base_stats.defense
+	# Verifica a precisão do movimento.
+	if randf() > clampf(move.accuracy, 0.0, 1.0):
+		print("%s errou o ataque!" % species.display_name)
+		return
+
+	var attack_stat: int
+	var defense_stat: int
+
+	# Seleciona os atributos conforme a categoria do movimento.
+	match move.category:
+		MoveDefinition.DamageCategory.PHYSICAL:
+			attack_stat = species.base_stats.attack
+			defense_stat = current_target.species.base_stats.defense
+
+		MoveDefinition.DamageCategory.SPECIAL:
+			attack_stat = species.base_stats.special_attack
+			defense_stat = current_target.species.base_stats.special_defense
+
+		MoveDefinition.DamageCategory.STATUS:
+			# Movimentos de status terão uma lógica própria posteriormente.
+			return
 
 	var damage := calculate_damage(
 		attack_stat,

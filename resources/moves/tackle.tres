@@ -6,4 +6,10 @@
 script = ExtResource("1_riq3k")
 move_id = &"tackle"
 display_name = "Tackle"
+type_id = &"normal"
+category = 0
+power = 40
+accuracy = 1.0
+attack_range = 3.0
+cooldown = 1.0
 metadata/_custom_type_script = "uid://ci2cdknspavo"
